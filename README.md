@@ -1,2 +1,2 @@
-# bdII
-MySQL activities.
+# DBII
+Database Projects - 2022.
