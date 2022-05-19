@@ -1,0 +1,2 @@
+# bdII
+MySQL activities.
