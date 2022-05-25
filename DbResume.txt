@@ -1,0 +1,17 @@
+Banco de Dados II
+
+SUM -> somar valores numéricos
+
+COUNT -> conta a quantidade de valores existentes
+
+AVG AS DECIMAL -> tira a média dos valores númericos 
+
+CAST -> formata o código para reduzir as casas decimais (opcional)
+
+MAX -> devolve o valor máximo entre vários existentes
+
+MIN -> devolve o valor mínimo entre vários existentes 
+
+Exemplo AVG E CAST:
+
+select CAST(AVG(campo) AS DECIMAL(8,2)) 'MÉDIA' 
