@@ -66,15 +66,15 @@ CREATE TABLE consulta (
 --     que moram em bauru ou agudos com salário entre 2999 e 5999.
 
 SELECT 
-    COUNT(nome) 'TOT MEDICOS'
+    COUNT(*) 'TOT MEDICOS' -- usar o '*' no lugar do 'nome' do medico, nao queremos contar nome.
 FROM
     medicos
 WHERE
     (especialidade = 'cardiologista'
         OR especialidade = 'urologista')
-        AND (cidade = 'bauru' OR cidade = 'agudos')
-        AND salario >= 2999
-        AND salario <= 5999;
+        AND (cidade = 'bauru' OR cidade = 'agudos') -- se não houver parênteses a condição 'and' junta o calculo anterior com o seguinte
+        AND (salario >= 2999 -- usar parênteses no calculo de salário
+        AND salario <= 5999);
 
 -- 2 – Mostrar a soma dos salários dos enfermeiros 
 --     que moram em são paulo ou brasilia e com salário entre 1999 e 3999.
@@ -86,8 +86,8 @@ FROM
 WHERE
     (cidade = 'sao paulo'
         OR cidade = 'brasilia')
-        AND salario >= 1999
-        AND salario <= 3999;
+        AND (salario >= 1999
+        AND salario <= 3999);
 
 -- 3 – Mostrar o valor médio dos salários dos médicos que morem em bauru ou agudos
 --     cuja especialidade não for dentista.
@@ -98,7 +98,7 @@ FROM
     medicos
 WHERE
     (cidade = 'bauru' OR cidade = 'agudos')
-        AND especialidade != 'dentista';
+        AND (especialidade != 'dentista'); -- poderia ser usado '<>' = diferente de ou 'not especialidade' que nega a condição
 
 -- 4 – Mostrar SOMENTE a idade do paciente mais novo do sexo feminino.
 
@@ -132,23 +132,28 @@ WHERE
 -- 7 – Relacionando as tabela consulta com médicos, enfermeiros e pacientes
 --     mostar o nome do médico, o nome do enfermeiro e o nome do paciente.
 
+-- exercicio antigo, relacionamento de tabelas com id
+
 SELECT 
-    medicos.nome 'NOME MÉDICO',
-    enfermeiros.nome 'NOME ENFERMEIRO',
-    pacientes.nome 'NOME PACIENTE'
+    m.nome 'NOME MÉDICO',
+    e.nome 'NOME ENFERMEIRO',
+    p.nome 'NOME PACIENTE'
 FROM
-    consulta,
-    medicos,
-    enfermeiros,
-    pacientes
-LIMIT 1;
+    consulta c,
+    medicos m,
+    enfermeiros e,
+    pacientes p
+where   
+    c.cod_medico = m.cod_medico and
+    c.cod_enfermeiro = e.cod_enfermeiro and
+    c.cod_paciente = p.cod_paciente;
 
 -- 8 – Mostrar a quantidade de médicos, a soma dos salários dos médicos, o maior
 --     e o menor salário dos médicos e a média salarial dos médicos em um
 --     ÚNICO script
 
 SELECT 
-    COUNT(nome) 'QTD MEDICOS',
+    COUNT(*) 'QTD MEDICOS', -- usar o '*' no lugar do 'nome' do medico, nao queremos contar nome.
     SUM(salario) 'SOMA SALÁRIO',
     MAX(salario) 'MAIOR SALÁRIO',
     MIN(salario) 'MENOR SALÁRIO',
@@ -177,7 +182,7 @@ FROM
     enfermeiros
 WHERE
     (cidade = 'bauru' OR cidade = 'agudos')
-        AND idade >= 20
-        AND idade <= 25
-        AND salario >= 1300
-        AND salario <= 5700;
+        AND (idade >= 20
+        AND idade <= 25)
+        AND (salario >= 1300
+        AND salario <= 5700);
